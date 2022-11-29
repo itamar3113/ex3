@@ -1,10 +1,13 @@
 #ifndef EX2_Player_H
 #define EX2_Player_H
 
-class player
+#include <iostream>
+#include <string>
+
+class Player
 {
 private:
-    char *const name;
+    char *name;
     int level;
     int force;
     int maxHP;
@@ -21,7 +24,8 @@ public:
     @param maxHP - the max HP value of the player.
     @return a ne istance of player.
      */
-    Player(char *name, int force, int maxHP);
+    // todo how to declare name.
+    Player(char* name, int force, int maxHP);
 
     /*
     A copy constructor.
@@ -32,7 +36,7 @@ public:
     Destructor
     */
     ~Player();
-    // todo
+
     Player &operator=(const Player &other);
 
     /*
