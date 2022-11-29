@@ -1,12 +1,10 @@
 #ifndef EX2_Player_H
 #define EX2_Player_H
 
-#include <string>
-
 class player
 {
 private:
-    string name;
+    char *const name;
     int level;
     int force;
     int maxHP;
@@ -23,25 +21,25 @@ public:
     @param maxHP - the max HP value of the player.
     @return a ne istance of player.
      */
-    Player(string name, int force, int maxHP);
+    Player(char *name, int force, int maxHP);
 
     /*
     A copy constructor.
     */
     Player(const Player &);
-    
+
     /*
     Destructor
     */
     ~Player();
-    //todo
-    Player& operator=(const Player& other);
+    // todo
+    Player &operator=(const Player &other);
 
     /*
     Print the Player information.
     */
     void printInfo() const;
-    
+
     /*
     Raises the player's level by one.
     */
@@ -58,10 +56,10 @@ public:
     */
     void buff(int amount);
 
-     /*
-    Raises the player's HP in the amount received as an argument, up to the maxHP.
-    @param amount - the amount to raise the HP.
-    */
+    /*
+   Raises the player's HP in the amount received as an argument, up to the maxHP.
+   @param amount - the amount to raise the HP.
+   */
     void hael(int amount);
 
     /*
@@ -94,4 +92,6 @@ public:
     @return player's force + level
     */
     int getAttackStrength() const;
-}
+};
+
+#endif
