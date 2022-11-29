@@ -3,11 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include "utilities.h"
 
 class Player
 {
 private:
-    char *name;
+    const char *name;
     int level;
     int force;
     int maxHP;
@@ -25,7 +26,7 @@ public:
     @return a ne istance of player.
      */
     // todo how to declare name.
-    Player(char* name, int force, int maxHP);
+    Player(const char* name, int force, int maxHP);
 
     //todo check the default.
     /*
@@ -74,7 +75,7 @@ public:
     void damage(int amount);
 
     /*
-    @return - True if HP > 0,
+    @return - True if HP = 0,
               False otherwise.
     */
     bool isKnockedOut() const;
