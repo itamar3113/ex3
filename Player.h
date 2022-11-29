@@ -27,17 +27,18 @@ public:
     // todo how to declare name.
     Player(char* name, int force, int maxHP);
 
+    //todo check the default.
     /*
     A copy constructor.
     */
-    Player(const Player &);
+    Player(const Player &) = default;
 
     /*
     Destructor
     */
-    ~Player();
+    ~Player() = default;
 
-    Player &operator=(const Player &other);
+    Player &operator=(const Player &other) = default;
 
     /*
     Print the Player information.

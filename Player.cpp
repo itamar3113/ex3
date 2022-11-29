@@ -27,3 +27,4 @@ Player::Player(char* name, int force, int maxHP)
     this->maxHP = initMaxHP(maxHP);
     this->HP = this->maxHP;
 }
+
