@@ -65,7 +65,7 @@ public:
    Raises the player's HP in the amount received as an argument, up to the maxHP.
    @param amount - the amount to raise the HP.
    */
-    void hael(int amount);
+    void heal(int amount);
 
     /*
     Drops the player's HP in the amount received as an argument.
