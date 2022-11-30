@@ -22,7 +22,7 @@ private:
     int m_numOfCards;
     int m_nextCard;
     GameStatus m_gameStatus;
-    Player* m_player;
+    Player m_player;
 
 public:
 
