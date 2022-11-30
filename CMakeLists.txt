@@ -18,6 +18,6 @@ set(CMAKE_CPP_FLAGS ${MTM_FLAGS_DEBUG})
 
 
 # Add the names of your source files here
-set(CPP_FILES "Player.cpp" "Card.cpp" "Main.cpp" "utilities.cpp")
+set(CPP_FILES "Player.cpp" "Card.cpp" "Main.cpp" "utilities.cpp" "Mtmchkin.cpp")
 
 add_executable(mtmchkin ${CPP_FILES})
