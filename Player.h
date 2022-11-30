@@ -26,7 +26,7 @@ public:
     @return a ne istance of player.
      */
     // todo how to declare name.
-    Player(const char* name, int force, int maxHP);
+    Player(const char* name, int force = 5, int maxHP = 100);
 
     //todo check the default.
     /*
