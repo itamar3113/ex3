@@ -20,8 +20,3 @@ void Mtmchkin::playNextCard()
     (*m_player).printInfo();
     this->m_nextCard++;
 }
-
-int main()
-{
-    return 0;
-}
