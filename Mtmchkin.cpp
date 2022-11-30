@@ -1,21 +1,27 @@
 #include "Mtmchkin.h"
-#include "Player.h"
+
 Mtmchkin::Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards)
 {
-    this->player(playerName); 
-    this->status = GameStatus::MidGame;
-    this->nextCard = 0;
+    this->m_gameStatus = GameStatus::MidGame;
+    this->m_nextCard = 0;
+    this->m_numOfCards = numOfCards;
+    this->m_cardsArray = cardsArray;
+    this->m_player = new Player(playerName);
 }
 
-void playNextCard()
+void Mtmchkin::playNextCard()
 {
-    if(this->nextCard == numOfCards)
+    if(this->m_nextCard == m_numOfCards)
     {
-        nextCard = 0;
+        this->m_nextCard = 0;
     }
-    cardsArray[this->nextCard].printInfo();
-    cardsArray[this->nextCard].applyEncounter(player);
-    player.printInfo();
-    this->nextCard++;
+    this->m_cardsArray[this->m_nextCard].printInfo();
+    this->m_cardsArray[this->m_nextCard].applyEncounter(*m_player);
+    (*m_player).printInfo();
+    this->m_nextCard++;
 }
 
+int main()
+{
+    return 0;
+}

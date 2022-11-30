@@ -8,7 +8,7 @@ Card::Card (CardType type, const CardStats& stats)
 void Card::applyEncounter(Player& player) const
 {
     
-    if(m_effect == Battle)
+    if(m_effect == CardType::Battle)
     {
         bool win = (player.getAttackStrength() >= m_stats->force);
         if (win)
@@ -38,23 +38,23 @@ void Card::applyEncounter(Player& player) const
             player.buff(m_stats->buff);
         }
     }
-    void printInfo() const
+}
+void Card::printInfo() const
+{
+    if(m_effect == CardType::Battle)
     {
-        if(m_effect == CardType::Battle)
-        {
-            this.printBattleCardInfo();
-        }
-        else if(m_effect == CardType::Buff)
-        {
-            this.printBuffCardInfo();
-        }
-        else if(m_effect == CardType::Heal)
-        {
-            this.printHealCardInfo();
-        }
-        else //(m_effect == Treasure)
-        {
-            this.printTreasureCardInfo();
-        }
+        printBattleCardInfo(this->m_stats);
+    }
+    else if(m_effect == CardType::Buff)
+    {
+        printBuffCardInfo(this->m_stats);
+    }
+    else if(m_effect == CardType::Heal)
+    {
+        printHealCardInfo(this->m_stats);
+    }
+    else //(m_effect == Treasure)
+    {
+        printTreasureCardInfo(this->m_stats);
     }
 }
