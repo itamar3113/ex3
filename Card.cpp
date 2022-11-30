@@ -22,33 +22,33 @@ void Card::applyEncounter(Player& player) const
         }
         printBattleResult(win);
     }
-    else if(m_effect == Treasure)
+    else if(m_effect == CardType::Treasure)
     {
         player.addCoins(m_stats->loot);
     }
     else if(player.pay(m_stats->cost)) //m_effect == Heal || Buff
     {
-        if(m_effect == Heal)
+        if(m_effect == CardType::Heal)
         {   
             player.heal(m_stats->heal);
         }
     
-        if(m_effect == Buff)
+        if(m_effect == CardType::Buff)
         {
             player.buff(m_stats->buff);
         }
     }
     void printInfo() const
     {
-        if(m_effect == Battle)
+        if(m_effect == CardType::Battle)
         {
             this.printBattleCardInfo();
         }
-        else if(m_effect == Buff)
+        else if(m_effect == CardType::Buff)
         {
             this.printBuffCardInfo();
         }
-        else if(m_effect == Heal)
+        else if(m_effect == CardType::Heal)
         {
             this.printHealCardInfo();
         }
