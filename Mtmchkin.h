@@ -18,10 +18,10 @@ enum class GameStatus{Win, Loss, MidGame};
 class Mtmchkin {
 private:
     //TODO: complete the Mtmchkin class.
-    const Card* m_cardsArray;
-    int m_numOfCards;
-    int m_nextCard;
     GameStatus m_gameStatus;
+    int m_nextCard;
+    int m_numOfCards;
+    const Card* m_cardsArray;
     Player m_player;
 
 public:

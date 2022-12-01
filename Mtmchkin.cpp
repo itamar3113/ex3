@@ -20,3 +20,21 @@ void Mtmchkin::playNextCard()
     m_player.printInfo();
     this->m_nextCard++;
 }
+
+bool Mtmchkin::isOver() const
+{
+    return !(getGameStatus() == GameStatus::MidGame);
+}
+
+GameStatus Mtmchkin::getGameStatus() const
+{
+    if (m_player.getLevel() == 10)
+    {
+        return GameStatus::Win;
+    }
+    if (m_player.isKnockedOut())
+    {
+        return GameStatus::Loss;
+    }
+    return GameStatus::MidGame;
+}

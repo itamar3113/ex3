@@ -9,11 +9,11 @@ class Player
 {
 private:
     const char *m_name;
+    int m_coins;
     int m_level;
     int m_force;
     int m_maxHP;
     int m_HP;
-    int m_coins;
 
 public:
     /*
