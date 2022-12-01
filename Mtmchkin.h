@@ -64,6 +64,13 @@ public:
      *          GameStatus - the current status of the running game
      */
     GameStatus getGameStatus() const;
+     
+    /*
+     *  Set the status of the game:
+     *
+     *  set the member m_statusGame according to the current data of the player
+     */
+    void setGameStatus();
 
     //TODO: complete the Mtmchkin class.
 

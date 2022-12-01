@@ -18,6 +18,7 @@ void Mtmchkin::playNextCard()
     this->m_cardsArray[this->m_nextCard].printInfo();
     this->m_cardsArray[this->m_nextCard].applyEncounter(m_player);
     m_player.printInfo();
+    setGameStatus(); // need to be here?
     this->m_nextCard++;
 }
 
@@ -26,15 +27,19 @@ bool Mtmchkin::isOver() const
     return !(getGameStatus() == GameStatus::MidGame);
 }
 
-GameStatus Mtmchkin::getGameStatus() const
+void Mtmchkin::setGameStatus()
 {
     if (m_player.getLevel() == 10)
     {
-        return GameStatus::Win;
+        m_gameStatus = GameStatus::Win;
     }
     if (m_player.isKnockedOut())
     {
-        return GameStatus::Loss;
+        m_gameStatus = GameStatus::Loss;
     }
-    return GameStatus::MidGame;
+}
+
+GameStatus Mtmchkin::getGameStatus() const
+{
+    return m_gameStatus;
 }

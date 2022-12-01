@@ -99,6 +99,10 @@ void Player::addCoins(int amount)
 
 bool Player::pay(int amount)
 {
+    if(amount < 0)
+    {
+        return true;
+    }
     if (this->m_coins - amount >= 0)
     {
         this->m_coins -= amount;
