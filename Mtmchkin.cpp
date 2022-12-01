@@ -1,13 +1,17 @@
 #include "Mtmchkin.h"
 
-Mtmchkin::Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards):
+Mtmchkin::Mtmchkin(const char* playerName, Card* cardsArray, int numOfCards):
 
     m_gameStatus(GameStatus::MidGame),
     m_nextCard(0),
     m_numOfCards(numOfCards),
-    m_cardsArray(cardsArray),
+    m_cardsArray(new Card[numOfCards]),
     m_player(Player(playerName))
-{}
+{
+    for(int i = 0; i<numOfCards;i++){
+        m_cardsArray[i] = cardsArray[i];
+    }
+}
 
 void Mtmchkin::playNextCard()
 {
@@ -42,4 +46,8 @@ void Mtmchkin::setGameStatus()
 GameStatus Mtmchkin::getGameStatus() const
 {
     return m_gameStatus;
+}
+
+Mtmchkin::~Mtmchkin(){
+    delete[] m_cardsArray;
 }

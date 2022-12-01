@@ -21,7 +21,8 @@ private:
     GameStatus m_gameStatus;
     int m_nextCard;
     int m_numOfCards;
-    const Card* m_cardsArray;
+    //should be const?
+    Card* m_cardsArray;
     Player m_player;
 
 public:
@@ -35,9 +36,12 @@ public:
      * @result
      *      An instance of Mtmchkin
     */
-    Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards);
+    Mtmchkin(const char* playerName, Card* cardsArray, int numOfCards);
 
 
+    Mtmchkin(const Mtmchkin&);
+    ~Mtmchkin();
+    Mtmchkin& operator=(const Mtmchkin& other);
     /*
      * Play the next Card - according to the instruction in the exercise document
      *
