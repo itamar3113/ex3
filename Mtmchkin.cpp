@@ -24,7 +24,7 @@ void Mtmchkin::playNextCard()
 
 bool Mtmchkin::isOver() const
 {
-    return !(getGameStatus() == GameStatus::MidGame);
+    return (getGameStatus() != GameStatus::MidGame);
 }
 
 void Mtmchkin::setGameStatus()

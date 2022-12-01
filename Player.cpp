@@ -19,7 +19,7 @@ static int initMaxHP(int maxHP)
     return maxHP;
 }
 
-Player::Player(const char *name, int force, int maxHP):
+Player::Player(const char *name, int maxHP, int force):
     m_name(name),
     m_coins(0),
     m_level(1),
@@ -86,7 +86,7 @@ void Player::damage(int amount)
 
 bool Player::isKnockedOut() const
 {
-    return this->m_HP;
+    return !(this->m_HP);
 }
 
 void Player::addCoins(int amount)
