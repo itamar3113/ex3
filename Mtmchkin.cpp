@@ -1,5 +1,6 @@
 #include "Mtmchkin.h"
 
+
 Mtmchkin::Mtmchkin(const char* playerName, Card* cardsArray, int numOfCards):
 
     m_gameStatus(GameStatus::MidGame),
@@ -33,7 +34,7 @@ bool Mtmchkin::isOver() const
 
 void Mtmchkin::setGameStatus()
 {
-    if (m_player.getLevel() == 10)
+    if (m_player.getLevel() == MAX_LEVEL)
     {
         m_gameStatus = GameStatus::Win;
     }

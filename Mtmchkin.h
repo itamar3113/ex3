@@ -7,6 +7,7 @@
 #include "Card.h"
 #include <iostream>
 
+
 /*
  * GameStatus:
  * MidGame - The game is still active and the player continues to encounter cards.
@@ -27,6 +28,7 @@ private:
 
 public:
 
+    const int MAX_LEVEL = 10; // should be here?
     /*
      * C'tor of the game:
      *
