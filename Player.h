@@ -28,7 +28,6 @@ public:
     // todo how to declare m_name.
     Player(const char* m_name, int maxHP = 100, int force = 5);
 
-    //todo check the default.
     /*
     A copy constructor.
     */

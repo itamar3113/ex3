@@ -22,7 +22,6 @@ private:
     GameStatus m_gameStatus;
     int m_nextCard;
     int m_numOfCards;
-    //should be const?
     Card* m_cardsArray;
     Player m_player;
 

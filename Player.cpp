@@ -1,11 +1,14 @@
 #include "Player.h"
 
+const int DEFAULT_FORCE = 5;
+const int DEFAULT_MAX_HP = 100;
 
-static int initForce(int force)
+    static int
+    initForce(int force)
 {
     if (force < 0)
     {
-        force = 5;
+        force = DEFAULT_FORCE;
     }
     return force;
 }
@@ -14,19 +17,20 @@ static int initMaxHP(int maxHP)
 {
     if (maxHP <= 0)
     {
-        maxHP = 5;
+        maxHP = DEFAULT_MAX_HP;
     }
     return maxHP;
 }
 
-Player::Player(const char *name, int maxHP, int force):
-    m_name(name),
-    m_coins(0),
-    m_level(1),
-    m_force(initForce(force)),
-    m_maxHP(initMaxHP(maxHP)),
-    m_HP(m_maxHP)
-{}
+//todo: copy name and dont use the pointer
+Player::Player(const char *name, int maxHP, int force) : m_name(name),
+                                                         m_coins(0),
+                                                         m_level(1),
+                                                         m_force(initForce(force)),
+                                                         m_maxHP(initMaxHP(maxHP)),
+                                                         m_HP(m_maxHP)
+{
+}
 
 void Player::printInfo() const
 {
@@ -99,7 +103,7 @@ void Player::addCoins(int amount)
 
 bool Player::pay(int amount)
 {
-    if(amount < 0)
+    if (amount < 0)
     {
         return true;
     }
