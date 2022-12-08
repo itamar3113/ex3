@@ -14,6 +14,33 @@ Mtmchkin::Mtmchkin(const char* playerName, Card* cardsArray, int numOfCards):
     }
 }
 
+Mtmchkin::Mtmchkin(const Mtmchkin& other) : 
+
+    m_gameStatus(other.getGameStatus()),
+    m_nextCard(0),
+    m_numOfCards(other.m_numOfCards),
+    m_cardsArray(new Card[other.m_numOfCards]),
+    m_player(Player(other.m_player))
+{
+    for(int i = 0; i < other.m_numOfCards; i++){
+        m_cardsArray[i] = other.m_cardsArray[i];
+    }
+}
+
+Mtmchkin& Mtmchkin::operator=(const Mtmchkin& other)
+{
+    if (this == &other)
+    {
+        return *this;
+    }
+    delete[] m_cardsArray;
+    m_cardsArray = new Card[other.m_numOfCards];
+    for(int i = 0; i < other.m_numOfCards; i++){
+        m_cardsArray[i] = other.m_cardsArray[i];
+    }
+    return *this;
+}
+
 void Mtmchkin::playNextCard()
 {
     if(this->m_nextCard == m_numOfCards)

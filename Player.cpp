@@ -21,15 +21,55 @@ static int initMaxHP(int maxHP)
     }
     return maxHP;
 }
-
+static char* copyString(const char* other)
+{
+    int cnt = 0;
+    for(int i=0; other[i];i++)
+    {  
+        cnt++;
+    }
+    char* copyName = new char[cnt];
+    for(int i=0; other[i];i++)
+    {  
+        copyName[i] = other[i];
+    }
+    return copyName;
+}
 //todo: copy name and dont use the pointer
-Player::Player(const char *name, int maxHP, int force) : m_name(name),
+Player::Player(const char *name, int maxHP, int force) : m_name(copyString(name)),
                                                          m_coins(0),
                                                          m_level(1),
                                                          m_force(initForce(force)),
                                                          m_maxHP(initMaxHP(maxHP)),
                                                          m_HP(m_maxHP)
 {
+}
+
+Player::Player(const Player& other): 
+                            m_name(copyString(other.m_name)),
+                            m_coins(other.m_coins),
+                            m_level(other.m_level),
+                            m_force(other.m_force),
+                            m_maxHP(other.m_maxHP),
+                            m_HP(other.m_maxHP)
+{
+}
+
+Player& Player::operator=(const Player &other)
+{
+    if (this == &other)
+    {
+        return *this;
+    }
+    
+    m_coins = other.m_coins;
+    m_level = other.m_level;
+    m_force = other.m_force;
+    m_maxHP = other.m_maxHP;
+    m_HP = other.m_maxHP;
+    delete[] m_name;
+    m_name = copyString(other.m_name);
+    return *this;
 }
 
 void Player::printInfo() const
@@ -118,4 +158,8 @@ bool Player::pay(int amount)
 int Player::getAttackStrength() const
 {
     return this->m_force + this->m_level;
+}
+Player::~Player()
+{
+    delete[] m_name;
 }

@@ -8,7 +8,7 @@
 class Player
 {
 private:
-    const char *m_name;
+    char *m_name;
     int m_coins;
     int m_level;
     int m_force;
@@ -31,14 +31,14 @@ public:
     /*
     A copy constructor.
     */
-    Player(const Player &) = default;
+    Player(const Player &);
 
     /*
     Destructor
     */
-    ~Player() = default;
+    ~Player();
 
-    Player &operator=(const Player &other) = default;
+    Player &operator=(const Player &other);
 
     /*
     Print the Player information.

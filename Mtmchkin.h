@@ -39,10 +39,21 @@ public:
     */
     Mtmchkin(const char* playerName, Card* cardsArray, int numOfCards);
 
-
+    /*
+     * Copy C'tor of the game:
+    */
     Mtmchkin(const Mtmchkin&);
-    ~Mtmchkin();
+
+    /*
+     * Assignment oprator of the game:
+    */
     Mtmchkin& operator=(const Mtmchkin& other);
+    
+    /*
+     * Destructor of the game:
+    */
+    ~Mtmchkin();
+    
     /*
      * Play the next Card - according to the instruction in the exercise document
      *
