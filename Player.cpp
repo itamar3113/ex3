@@ -3,8 +3,8 @@
 const int DEFAULT_FORCE = 5;
 const int DEFAULT_MAX_HP = 100;
 
-    static int
-    initForce(int force)
+static int
+initForce(int force)
 {
     if (force < 0)
     {
@@ -21,21 +21,25 @@ static int initMaxHP(int maxHP)
     }
     return maxHP;
 }
-static char* copyString(const char* other)
+static char *copyString(const char *other)
 {
     int cnt = 0;
-    for(int i=0; other[i];i++)
-    {  
+    for (int i = 0; other[i]; i++)
+    {
         cnt++;
     }
-    char* copyName = new char[cnt];
-    for(int i=0; other[i];i++)
-    {  
-        copyName[i] = other[i];
+    char *copyName = new char[cnt + 1];
+    if (copyName)
+    {
+        for (int i = 0; other[i]; i++)
+        {
+            copyName[i] = other[i];
+        }
+        copyName[cnt] = '\0';
     }
     return copyName;
 }
-//todo: copy name and dont use the pointer
+
 Player::Player(const char *name, int maxHP, int force) : m_name(copyString(name)),
                                                          m_coins(0),
                                                          m_level(1),
@@ -45,23 +49,22 @@ Player::Player(const char *name, int maxHP, int force) : m_name(copyString(name)
 {
 }
 
-Player::Player(const Player& other): 
-                            m_name(copyString(other.m_name)),
-                            m_coins(other.m_coins),
-                            m_level(other.m_level),
-                            m_force(other.m_force),
-                            m_maxHP(other.m_maxHP),
-                            m_HP(other.m_maxHP)
+Player::Player(const Player &other) : m_name(copyString(other.m_name)),
+                                      m_coins(other.m_coins),
+                                      m_level(other.m_level),
+                                      m_force(other.m_force),
+                                      m_maxHP(other.m_maxHP),
+                                      m_HP(other.m_maxHP)
 {
 }
 
-Player& Player::operator=(const Player &other)
+Player &Player::operator=(const Player &other)
 {
     if (this == &other)
     {
         return *this;
     }
-    
+
     m_coins = other.m_coins;
     m_level = other.m_level;
     m_force = other.m_force;
