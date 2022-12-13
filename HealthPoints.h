@@ -18,7 +18,7 @@ class HealthPoints
     @param m_maxHP - the max m_HP value of the player.
     @return a new istance of HealthPoints.
      */
-    HealthPoints (int maxHP = DEFAULT_MAX_HP);
+    explicit HealthPoints (int maxHP = DEFAULT_MAX_HP);
 
     /*
     * copy c'tor oh Health Points
@@ -50,6 +50,7 @@ class HealthPoints
 
 HealthPoints operator+(const HealthPoints&, const int add);
 HealthPoints operator-(const HealthPoints&, const int sub);
+HealthPoints operator+(const int add, const HealthPoints&);
 bool operator!=(const HealthPoints&, const HealthPoints&);
 bool operator<=(const HealthPoints&, const HealthPoints&);
 bool operator>=(const HealthPoints&, const HealthPoints&);
