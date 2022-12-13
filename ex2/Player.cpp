@@ -3,8 +3,7 @@
 const int DEFAULT_FORCE = 5;
 const int DEFAULT_MAX_HP = 100;
 
-static int
-initForce(int force)
+static int initForce(int force)
 {
     if (force < 0)
     {
