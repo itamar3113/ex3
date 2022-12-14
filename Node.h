@@ -9,13 +9,30 @@ private:
     Node<T> m_next;
 
 public:
-    Node<T>(T &data);
+    Node<T>(T &data):   m_data(new T(data)),
+                        m_next(NULL)
+                        { }
     //todo should be default?
     Node<T>(const Node<T> &) = default;
     ~Node() = default;
-    T getData();
-    Node<T> getNext();
-    void setNext(Node next);
+
+    template <typename T>
+    &T Node<T>::getData()
+    {
+        return &m_data;
+    }
+
+    template <typename T>
+    Node<T> Node<T>::getNext()
+    {
+        return &m_next;
+    }
+
+    template <typename T>
+    void Node<T>::setNext(Node next)
+    {
+        m_next = next;
+    }
 };
 
 #endif
