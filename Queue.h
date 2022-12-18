@@ -7,15 +7,15 @@
 template <class T>
 struct Node {
     T m_data;
-    Node* m_next;
+    Node m_next;
 };
 
 template <class T>
 class Queue
 {
 private:
-    Node<T>* m_head;
-    Node<T>* m_tail;
+    Node<T> m_head;
+    Node<T> m_tail;
 
 public:
     /*
