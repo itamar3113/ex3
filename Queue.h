@@ -20,6 +20,10 @@ private:
 	Node<T> m_tail;
 
 public:
+	class Iterator;
+
+	Iterator begin() const;
+	Iterator end() const;
 	/*
 	 * C'tor of generic empty Queue;
 	 */
@@ -164,6 +168,64 @@ void transform(Queue<T> &queue, Transformator transformator)
 		tmp.m_data = transformator(tmp.m_data);
 		tmp = tmp.m_next;
 	}
+}
+
+template <class T>
+class Queue<T>::Iterator
+{
+private:
+	Node<T> *m_current;
+	Iterator(const Node<T> *current);
+	friend class Queue;
+
+public:
+	const T &operator*() const;
+	Iterator &operator++();
+	Iterator operator++(int);
+	bool operator!=(const Iterator &other);
+};
+
+template <class T>
+Queue<T>::Iterator::Iterator(const Node<T> *current) : m_current(current)
+{
+}
+
+template <class T>
+const T &Queue<T>::Iterator::operator*() const
+{
+	return m_current->m_data;
+}
+
+template <class T>
+typename Queue<T>::Iterator &Queue<T>::Iterator::operator++()
+{
+	m_current = m_current->m_next;
+	return *this;
+}
+
+// needed in linked list?
+template <class T>
+typename Queue<T>::Iterator Queue<T>::Iterator::operator++(int signal)
+{
+	Iterator result = *this;
+	++*this;
+	return result;
+}
+
+template <class T>
+bool Queue<T>::Iterator::operator!=(const Iterator &other){
+	//todo need to check == for nodes.
+	return m_current == other.m_current;
+}
+
+template <class T>
+typename Queue<T>::Iterator Queue<T>::begin() const{
+	return Iterator(m_head);
+}
+
+template <class T>
+typename Queue<T>::Iterator Queue<T>::end() const{
+	return Iterator(nullptr);
 }
 
 #endif // QUEUE_H
