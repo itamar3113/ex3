@@ -3,7 +3,7 @@
 
 #define EMPTY_LIST !m_head
 #define ONE_ELEMENT_LIST m_head == m_tail
-
+#define END_LIST !(m_current->m_next)
 template <class T>
 struct Node
 {
@@ -24,6 +24,8 @@ public:
 
 	Iterator begin() const;
 	Iterator end() const;
+
+	class EmptyQueue {} ;
 	/*
 	 * C'tor of generic empty Queue;
 	 */
@@ -102,12 +104,20 @@ void Queue<T>::pushBack(const T &data)
 template <class T>
 T Queue<T>::front()
 {
+	if(EMPTY_LIST)
+	{
+		throw EmptyQueue();
+	}
 	return &(m_head.m_data);
 }
 
 template <class T>
 void Queue<T>::popFront()
 {
+	if(EMPTY_LIST)
+	{
+		throw EmptyQueue();
+	}
 	m_head = m_head.m_next;
 }
 
@@ -183,6 +193,8 @@ public:
 	Iterator &operator++();
 	Iterator operator++(int);
 	bool operator!=(const Iterator &other);
+	
+	class InvalidOperation {};
 };
 
 template <class T>
@@ -199,6 +211,10 @@ const T &Queue<T>::Iterator::operator*() const
 template <class T>
 typename Queue<T>::Iterator &Queue<T>::Iterator::operator++()
 {
+	if(END_LIST)
+	{
+		throw InvalidOperation();
+	}
 	m_current = m_current->m_next;
 	return *this;
 }
