@@ -21,6 +21,12 @@ private:
 		Node(const U& data, Node* next = nullptr): m_data(data), m_next(next) {};
 	};
 
+	template <class U>
+	bool template Node<U>::operator!=(Node<U> node1, Node<U> node2) 
+	{
+		return (node1->m_data!=node2->m_data || node1->m_next!=node2->m_next);
+	}
+
 	Node<T>* m_head;
 	Node<T>* m_tail;
 
@@ -212,14 +218,12 @@ template <class T, class Condition>
 Queue<T> filter(Queue<T> &origin, Condition c)
 {
 	Queue<T> filtered;
-	Node<T>* tmp = origin.m_head;
-	while (tmp) // todo replace in for with iterator?
-	{ 
-		if (c(tmp->m_data))
+	for(typename Queue<T>::ConstIterator i = origin.begin(); i != origin.end(); ++i)
+	{
+		if (c(*i))
 		{
-			filtered.pushBack(tmp->m_data);
+			filtered.pushBack(*i);
 		}
-		tmp = tmp->m_next;
 	}
 	return filtered;
 }
@@ -232,11 +236,10 @@ Queue<T> filter(Queue<T> &origin, Condition c)
 template <class T, class Transformator>
 void transform(Queue<T> &queue, Transformator transformator)
 {
-	Node<T>* tmp = queue.m_head;
-	while (tmp)
+	for(typename Queue<T>::Iterator i = queue.begin(); i != queue.end(); ++i)
+	
 	{
-		tmp.m_data = transformator(tmp.m_data);
-		tmp = tmp.m_next;
+		*i = transformator(*i);
 	}
 }
 
