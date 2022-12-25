@@ -24,6 +24,7 @@ private:
 
 public:
 	class Iterator;
+	class ConstIterator;
 
 	Iterator begin() const;
 	Iterator end() const;
@@ -61,7 +62,7 @@ public:
 	void pushBack(const T &data);
 
 	/*
-	 * Get the frst element in the queue
+	 * Get the first element in the queue
 	 * @return refrance for the first element
 	 */
 	T front();
@@ -239,7 +240,7 @@ private:
 	friend class Queue;
 
 public:
-	const T &operator*() const;
+	T &operator*() const;
 	Iterator &operator++();
 	Iterator operator++(int);
 	bool operator!=(const Iterator &other);
@@ -253,7 +254,7 @@ Queue<T>::Iterator::Iterator(const Node<T> *current) : m_current(current)
 }
 
 template <class T>
-const T &Queue<T>::Iterator::operator*() const
+T &Queue<T>::Iterator::operator*() const
 {
 	return m_current->m_data;
 }
@@ -281,12 +282,76 @@ typename Queue<T>::Iterator Queue<T>::Iterator::operator++(int signal)
 template <class T>
 bool Queue<T>::Iterator::operator!=(const Iterator &other){
 	//todo need to check == for nodes.
-	return m_current == other.m_current;
+	return m_current != other.m_current;
 }
 
 template <class T>
 typename Queue<T>::Iterator Queue<T>::begin() const{
 	return Iterator(m_head);
+}
+
+template <class T>
+typename Queue<T>::Iterator Queue<T>::end() const{
+	return Iterator(nullptr);
+}
+
+template <class T>
+class Queue<T>::ConstIterator
+{
+private:
+	Node<T> *m_current;
+	ConstIterator(const Node<T> *current);
+	friend class Queue;
+
+public:
+	const T &operator*() const;
+	ConstIterator &operator++();
+	ConstIterator operator++(int);
+	bool operator!=(const ConstIterator &other);
+	
+	class InvalidOperation {};
+};
+
+template <class T>
+Queue<T>::ConstIterator::ConstIterator(const Node<T> *current) : m_current(current)
+{
+}
+
+template <class T>
+const T &Queue<T>::ConstIterator::operator*() const
+{
+	return m_current->m_data;
+}
+
+template <class T>
+typename Queue<T>::ConstIterator &Queue<T>::ConstIterator::operator++()
+{
+	if(END_LIST)
+	{
+		throw InvalidOperation();
+	}
+	m_current = m_current->m_next;
+	return *this;
+}
+
+// needed in linked list?
+template <class T>
+typename Queue<T>::ConstIterator Queue<T>::ConstIterator::operator++(int signal)
+{
+	Iterator result = *this;
+	++*this;
+	return result;
+}
+
+template <class T>
+bool Queue<T>::ConstIterator::operator!=(const ConstIterator &other){
+	//todo need to check == for nodes.
+	return m_current != other.m_current;
+}
+//Return constIterator od Iterator?
+template <class T>
+typename Queue<T>::ConstIterator Queue<T>::begin() const{
+	return ConstIterator(m_head);
 }
 
 template <class T>
