@@ -1,6 +1,8 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <stdexcept>
+
 #define EMPTY_LIST !m_head
 #define ONE_ELEMENT_LIST m_head == m_tail
 #define END_LIST !(m_current->m_next)
@@ -26,8 +28,10 @@ public:
 	class Iterator;
 	class ConstIterator;
 
-	Iterator begin() const;
-	Iterator end() const;
+	Iterator begin() ;
+	Iterator end() ;
+	ConstIterator begin() const;
+	ConstIterator end() const;
 
 	class EmptyQueue {} ;
 	/*
@@ -77,9 +81,6 @@ public:
 	 */
 	int size();
 
-	template <class Condition>
-	friend Queue<T> filter(Queue<T> &origin, Condition c);
-
 };
 
 template <class T>
@@ -89,8 +90,8 @@ Queue<T>::Queue() : m_head(nullptr),
 }
 
 template <class T>
-Queue<T>::Queue(const Queue<T> &other) : m_head(new T(other.m_head)),
-										 m_tail(new T(other.m_head))
+Queue<T>::Queue(const Queue<T> &other) : m_head(nullptr),
+										 m_tail(nullptr)
 {
 	Node<T>* tmp = other.m_head;
 	while(tmp)
@@ -139,16 +140,24 @@ void Queue<T>::clear()
 template <class T>
 void Queue<T>::pushBack(const T &data)
 {
-	Node<T> insertNode = new Node<T>(data);
-	if (EMPTY_LIST)
+	try
 	{
-		m_head = insertNode;
-		m_tail = insertNode;
+		Node<T> insertNode = new Node<T>(data);
+		if (EMPTY_LIST)
+		{
+			m_head = insertNode;
+			m_tail = insertNode;
+		}
+		else // at least one element
+		{
+			m_tail->m_next = insertNode;
+			m_tail = insertNode;
+		}
 	}
-	else // at least one element
+	catch (std::bad_alloc& e)
 	{
-		m_tail->m_next = insertNode;
-		m_tail = insertNode;
+		this.clear();
+		throw;
 	}
 }
 
@@ -264,6 +273,7 @@ typename Queue<T>::Iterator &Queue<T>::Iterator::operator++()
 {
 	if(END_LIST)
 	{
+		//should be clear here??
 		throw InvalidOperation();
 	}
 	m_current = m_current->m_next;
@@ -286,12 +296,12 @@ bool Queue<T>::Iterator::operator!=(const Iterator &other){
 }
 
 template <class T>
-typename Queue<T>::Iterator Queue<T>::begin() const{
+typename Queue<T>::Iterator Queue<T>::begin(){
 	return Iterator(m_head);
 }
 
 template <class T>
-typename Queue<T>::Iterator Queue<T>::end() const{
+typename Queue<T>::Iterator Queue<T>::end(){
 	return Iterator(nullptr);
 }
 
@@ -355,8 +365,8 @@ typename Queue<T>::ConstIterator Queue<T>::begin() const{
 }
 
 template <class T>
-typename Queue<T>::Iterator Queue<T>::end() const{
-	return Iterator(nullptr);
+typename Queue<T>::ConstIterator Queue<T>::end() const{
+	return ConstIterator(nullptr);
 }
 
 #endif // QUEUE_H
