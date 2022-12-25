@@ -69,7 +69,8 @@ public:
 	 * Get the first element in the queue
 	 * @return refrance for the first element
 	 */
-	T front();
+	//todo the test demand this to be const
+	T front() const;
 
 	/*
 	 * pop the first elemnt in the list
@@ -162,7 +163,7 @@ void Queue<T>::pushBack(const T &data)
 }
 
 template <class T>
-T Queue<T>::front()
+T Queue<T>::front() const
 {
 	if(EMPTY_LIST)
 	{
@@ -289,7 +290,7 @@ typename Queue<T>::Iterator Queue<T>::Iterator::operator++(int signal)
 template <class T>
 bool Queue<T>::Iterator::operator!=(const Iterator &other){
 	//todo need to check == for nodes.
-	return *this != *other;
+	return m_current != other.m_current;
 }
 
 template <class T>
@@ -353,7 +354,7 @@ typename Queue<T>::ConstIterator Queue<T>::ConstIterator::operator++(int signal)
 template <class T>
 bool Queue<T>::ConstIterator::operator!=(const ConstIterator &other){
 	//todo need to check == for nodes.
-	return *this != *other;
+	return m_current != other.m_current;
 }
 //Return constIterator od Iterator?
 template <class T>
