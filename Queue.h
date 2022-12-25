@@ -21,12 +21,6 @@ private:
 		Node(const U& data, Node* next = nullptr): m_data(data), m_next(next) {};
 	};
 
-	template <class U>
-	bool template Node<U>::operator!=(Node<U> node1, Node<U> node2) 
-	{
-		return (node1->m_data!=node2->m_data || node1->m_next!=node2->m_next);
-	}
-
 	Node<T>* m_head;
 	Node<T>* m_tail;
 
@@ -295,7 +289,7 @@ typename Queue<T>::Iterator Queue<T>::Iterator::operator++(int signal)
 template <class T>
 bool Queue<T>::Iterator::operator!=(const Iterator &other){
 	//todo need to check == for nodes.
-	return m_current != other.m_current;
+	return *this != *other;
 }
 
 template <class T>
@@ -359,7 +353,7 @@ typename Queue<T>::ConstIterator Queue<T>::ConstIterator::operator++(int signal)
 template <class T>
 bool Queue<T>::ConstIterator::operator!=(const ConstIterator &other){
 	//todo need to check == for nodes.
-	return m_current != other.m_current;
+	return *this != *other;
 }
 //Return constIterator od Iterator?
 template <class T>
