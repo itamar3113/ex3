@@ -18,7 +18,8 @@ class HealthPoints
     @param m_maxHP - the max m_HP value of the player.
     @return a new istance of HealthPoints.
      */
-    explicit HealthPoints (int maxHP = DEFAULT_MAX_HP);
+     // todo should be explicit?? the test demand convertion from int
+    HealthPoints (int maxHP = DEFAULT_MAX_HP);
 
     /*
     * copy c'tor oh Health Points
