@@ -23,7 +23,8 @@ private:
 
 	Node<T>* m_head;
 	Node<T>* m_tail;
-
+	int m_size;
+	
 public:
 	class Iterator;
 	class ConstIterator;
@@ -86,13 +87,15 @@ public:
 
 template <class T>
 Queue<T>::Queue() : m_head(nullptr),
-					m_tail(nullptr)
+					m_tail(nullptr),
+					m_size(0)
 {
 }
 
 template <class T>
 Queue<T>::Queue(const Queue<T> &other) : m_head(nullptr),
-										 m_tail(nullptr)
+										 m_tail(nullptr),
+										 m_size(0)
 {
 	Node<T>* tmp = other.m_head;
 	while(tmp)
@@ -140,6 +143,7 @@ void Queue<T>::pushBack(const T &data)
 	try
 	{
 		Node<T>* insertNode = new Node<T>(data);
+		m_size++;
 		if (EMPTY_LIST)
 		{
 			m_head = insertNode;
@@ -154,7 +158,7 @@ void Queue<T>::pushBack(const T &data)
 	catch (std::bad_alloc& e)
 	{
 		(*this).clear();
-		throw;
+		throw e;
 	}
 }
 
@@ -177,34 +181,14 @@ void Queue<T>::popFront()
 	}
 	Node<T>* deleteNode = m_head;
 	m_head = m_head->m_next;
+	m_size--;
 	delete deleteNode;
 }
 
 template <class T>
-int Queue<T>::size() const //todo implement with iterator
+int Queue<T>::size() const
 {
-	if (EMPTY_LIST)
-	{
-		return 0;
-	}
-	if (ONE_ELEMENT_LIST)
-	{
-		return 1;
-	}
-	int cnt = 0;
-	for(typename Queue<T>::ConstIterator i = (*this).begin(); i != (*this).end(); ++i)
-	{
-		cnt++; 
-	}/*
-
-	int cnt = 1;
-	Node<T> tmp = m_head;
-	while (tmp.m_next)
-	{
-		cnt++;
-		tmp = tmp.m_next;
-	}*/
-	return cnt;
+	return m_size;
 }
 
 /**
