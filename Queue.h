@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <stdexcept>
-
+#include <iostream>
 #define EMPTY_LIST !m_head
 #define ONE_ELEMENT_LIST m_head == m_tail
 #define END_LIST !(m_current->m_next)
@@ -128,13 +128,9 @@ Queue<T>::~Queue()
 template <class T>
 void Queue<T>::clear()
 {
-	Node<T>* deleteNode = m_head;
-
-	while(deleteNode)
+	while(m_head)
 	{
-		m_head = m_head->m_next;
-		delete deleteNode;
-		deleteNode = m_head;
+		(*this).popFront();
 	}
 }
 
@@ -179,7 +175,9 @@ void Queue<T>::popFront()
 	{
 		throw EmptyQueue();
 	}
+	Node<T>* deleteNode = m_head;
 	m_head = m_head->m_next;
+	delete deleteNode;
 }
 
 template <class T>
