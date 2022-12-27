@@ -1,7 +1,6 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <stdexcept>
 #include <iostream>
 #define EMPTY_LIST !m_head
 #define ONE_ELEMENT_LIST m_head == m_tail
@@ -335,7 +334,7 @@ typename Queue<T>::ConstIterator &Queue<T>::ConstIterator::operator++()
 template <class T>
 typename Queue<T>::ConstIterator Queue<T>::ConstIterator::operator++(int signal)
 {
-	Iterator result = *this;
+	ConstIterator result = *this;
 	++*this;
 	return result;
 }
