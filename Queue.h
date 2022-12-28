@@ -99,10 +99,18 @@ Queue<T>::Queue(const Queue<T> &other) : m_head(nullptr),
 										 m_size(0)
 {
 	Node<T>* tmp = other.m_head;
-	while(tmp)
+	try 
 	{
-		pushBack(tmp->m_data);
-		tmp = tmp->m_next;
+		while(tmp)
+		{
+			pushBack(tmp->m_data);
+			tmp = tmp->m_next;
+		}
+	}
+	catch (const std::bad_alloc& e)
+	{
+		(*this).clear();
+		throw e;
 	}
 }
 
@@ -160,25 +168,17 @@ void Queue<T>::clear()
 template <class T>
 void Queue<T>::pushBack(const T &data)
 {
-	try
+	Node<T>* insertNode = new Node<T>(data);
+	m_size++;
+	if (EMPTY_LIST)
 	{
-		Node<T>* insertNode = new Node<T>(data);
-		m_size++;
-		if (EMPTY_LIST)
-		{
-			m_head = insertNode;
-			m_tail = insertNode;
-		}
-		else // at least one element
-		{
-			m_tail->m_next = insertNode;
-			m_tail = insertNode;
-		}
+		m_head = insertNode;
+		m_tail = insertNode;
 	}
-	catch (const std::bad_alloc& e)
+	else // at least one element
 	{
-		(*this).clear();
-		throw e;
+		m_tail->m_next = insertNode;
+		m_tail = insertNode;
 	}
 }
 
@@ -244,9 +244,17 @@ Queue<T> filter(const Queue<T> &origin, Condition c)
 	Queue<T> filtered;
 	for(typename Queue<T>::ConstIterator i = origin.begin(); i != origin.end(); ++i)
 	{
-		if (c(*i))
+		try
 		{
-			filtered.pushBack(*i);
+			if (c(*i))
+			{
+				filtered.pushBack(*i);
+			}
+		}
+		catch (const std::bad_alloc& e)
+		{
+			filtered.clear();
+			throw e;
 		}
 	}
 	return filtered;
