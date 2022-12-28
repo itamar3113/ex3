@@ -5,7 +5,7 @@
 
 #define EMPTY_LIST m_size == 0
 #define ONE_ELEMENT_LIST m_size==1
-#define END_LIST !(m_current->m_next)
+#define END_LIST !(m_current)
 
 template <class T>
 class Queue
@@ -97,7 +97,7 @@ Queue<T>::Queue() : m_head(nullptr),
 template <class T>
 Queue<T>::Queue(const Queue<T> &other) : m_head(nullptr),
 										 m_tail(nullptr),
-										 m_size(other.m_size)
+										 m_size(0)
 {
 	Node<T>* tmp = other.m_head;
 	try 
@@ -188,7 +188,7 @@ const T& Queue<T>::front() const
 {
 	if(EMPTY_LIST)
 	{
-		throw Queue<T>::EmptyQueue();
+		throw EmptyQueue();
 	}
 	return m_head->m_data;
 }
@@ -198,7 +198,7 @@ T& Queue<T>::front()
 {
 	if(EMPTY_LIST)
 	{
-		throw Queue<T>::EmptyQueue();
+		throw EmptyQueue();
 	}
 	
 	return m_head->m_data;
@@ -209,7 +209,7 @@ void Queue<T>::popFront()
 {
 	if(EMPTY_LIST)
 	{
-		throw Queue<T>::EmptyQueue();
+		throw EmptyQueue();
 	}
 	else if(ONE_ELEMENT_LIST)//required?
 	{
