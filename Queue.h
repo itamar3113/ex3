@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <iostream>
-#define EMPTY_LIST !m_head
+#define EMPTY_LIST m_head==nullptr
 #define ONE_ELEMENT_LIST m_head == m_tail
 #define END_LIST !(m_current->m_next)
 
@@ -70,7 +70,9 @@ public:
 	 * @return refrance for the first element
 	 */
 	//todo the test demand this to be const
-	T& front() const;
+	const T& front() const;
+
+	T& front();
 
 	/*
 	 * pop the first elemnt in the list
@@ -111,13 +113,32 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other)
 	{
 		return *this;
 	}
-	(*this).clear();
-	Node<T>* tmp = other.m_head;
-	while(tmp)
+	if(other.m_head == nullptr)
 	{
-		pushBack(tmp->m_data);
-		tmp = tmp->m_next;
+		(*this).clear();
+		return *this;
 	}
+	Queue<T>* copyQueue;
+	try
+	{
+		Node<T>* tmp = other.m_head;
+		copyQueue = new Queue<T>;
+		while(tmp)
+		{
+			(*copyQueue).pushBack(tmp->m_data);
+			tmp = tmp->m_next;
+		}
+	}
+	catch (const std::bad_alloc& e)
+	{
+		(*copyQueue).clear();
+		throw e;
+	}
+	(*this).clear();
+
+	this->m_head = copyQueue->m_head;
+	this->m_tail = copyQueue->m_tail;
+	this->m_size = copyQueue->m_size;
 	return *this;
 }
 
@@ -154,7 +175,7 @@ void Queue<T>::pushBack(const T &data)
 			m_tail = insertNode;
 		}
 	}
-	catch (std::bad_alloc& e)
+	catch (const std::bad_alloc& e)
 	{
 		(*this).clear();
 		throw e;
@@ -162,11 +183,21 @@ void Queue<T>::pushBack(const T &data)
 }
 
 template <class T>
-T& Queue<T>::front() const
+const T& Queue<T>::front() const
 {
 	if(EMPTY_LIST)
 	{
-		throw EmptyQueue();
+		throw Queue<T>::EmptyQueue();
+	}
+	return m_head->m_data;
+}
+
+template <class T>
+T& Queue<T>::front() 
+{
+	if(EMPTY_LIST)
+	{
+		throw Queue<T>::EmptyQueue();
 	}
 	return m_head->m_data;
 }
@@ -176,12 +207,24 @@ void Queue<T>::popFront()
 {
 	if(EMPTY_LIST)
 	{
-		throw EmptyQueue();
+		throw Queue<T>::EmptyQueue();
 	}
-	Node<T>* deleteNode = m_head;
-	m_head = m_head->m_next;
-	m_size--;
-	delete deleteNode;
+	if(ONE_ELEMENT_LIST)//required?
+	{
+		Node<T>* deleteNode = m_head;
+		m_head = nullptr;
+		m_tail = nullptr;
+		m_size = 0;
+		delete deleteNode;
+
+	}
+	else
+	{
+		Node<T>* deleteNode = m_head;
+		m_head = m_head->m_next;
+		m_size--;
+		delete deleteNode;
+	}
 }
 
 template <class T>

@@ -2,7 +2,7 @@
 #define QUEUE_H
 
 #include <iostream>
-#define EMPTY_LIST m_head == nullptr
+#define EMPTY_LIST m_size==0
 #define ONE_ELEMENT_LIST m_head == m_tail
 #define END_LIST !(m_current->m_next)
 
@@ -110,13 +110,27 @@ Queue& Queue::operator=(const Queue& other)
 	{
 		return *this;
 	}
-	(*this).clear();
-	Node* tmp = other.m_head;
-	while(tmp)
+	
+	Queue* copyQueue = new Queue();
+	try
 	{
-		pushBack(tmp->m_data);
-		tmp = tmp->m_next;
+		Node* tmp = other.m_head;
+		while(tmp)
+		{
+			(*copyQueue).pushBack(tmp->m_data);
+			tmp = tmp->m_next;
+		}
 	}
+	catch (const std::bad_alloc& e)
+	{
+		(*copyQueue).clear();
+		throw e;
+	}
+	(*this).clear();
+
+	this->m_head = copyQueue->m_head;
+	this->m_tail = copyQueue->m_tail;
+	this->m_size = copyQueue->m_size;
 	return *this;
 }
 
