@@ -97,7 +97,7 @@ Queue<T>::Queue() : m_head(nullptr),
 template <class T>
 Queue<T>::Queue(const Queue<T> &other) : m_head(nullptr),
 										 m_tail(nullptr),
-										 m_size(0)
+										 m_size(other.m_size)
 {
 	Node<T>* tmp = other.m_head;
 	try 
