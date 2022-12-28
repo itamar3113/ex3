@@ -2,8 +2,9 @@
 #define QUEUE_H
 
 #include <iostream>
-#define EMPTY_LIST m_head==nullptr
-#define ONE_ELEMENT_LIST m_head == m_tail
+
+#define EMPTY_LIST m_size == 0
+#define ONE_ELEMENT_LIST m_size==1
 #define END_LIST !(m_current->m_next)
 
 template <class T>
@@ -169,7 +170,6 @@ template <class T>
 void Queue<T>::pushBack(const T &data)
 {
 	Node<T>* insertNode = new Node<T>(data);
-	m_size++;
 	if (EMPTY_LIST)
 	{
 		m_head = insertNode;
@@ -180,6 +180,7 @@ void Queue<T>::pushBack(const T &data)
 		m_tail->m_next = insertNode;
 		m_tail = insertNode;
 	}
+	m_size++;
 }
 
 template <class T>
@@ -199,6 +200,7 @@ T& Queue<T>::front()
 	{
 		throw Queue<T>::EmptyQueue();
 	}
+	
 	return m_head->m_data;
 }
 
@@ -209,7 +211,7 @@ void Queue<T>::popFront()
 	{
 		throw Queue<T>::EmptyQueue();
 	}
-	if(ONE_ELEMENT_LIST)//required?
+	else if(ONE_ELEMENT_LIST)//required?
 	{
 		Node<T>* deleteNode = m_head;
 		m_head = nullptr;
