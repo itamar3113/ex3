@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include "ex2/utilities.h"
 
 const int DEFAULT_MAX_HP = 100;
 

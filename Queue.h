@@ -15,12 +15,11 @@ private:
 	template <class U>
 	struct Node
 	{
-		// todo encapsulation?
 		U m_data;
 		Node* m_next;
 		Node(const U& data, Node* next = nullptr): m_data(data), m_next(next) {};
 	};
-
+	
 	Node<T>* m_head;
 	Node<T>* m_tail;
 	int m_size;
@@ -213,19 +212,19 @@ void Queue<T>::popFront()
 	}
 	else if(ONE_ELEMENT_LIST)//required?
 	{
-		Node<T>* deleteNode = m_head;
+		Node<T>* toDelete = m_head;
 		m_head = nullptr;
 		m_tail = nullptr;
 		m_size = 0;
-		delete deleteNode;
+		delete toDelete;
 
 	}
 	else
 	{
-		Node<T>* deleteNode = m_head;
+		Node<T>* toDelete = m_head;
 		m_head = m_head->m_next;
 		m_size--;
-		delete deleteNode;
+		delete toDelete;
 	}
 }
 
